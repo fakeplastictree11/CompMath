@@ -58,19 +58,10 @@ DerivativeCoef<RealType, N> calcDerivativeCoef(const std::array<RealType, N>& po
 }
 
 template<typename T, unsigned int N>
-std::array<T, N> create_points(T h) {
+std::array<T, N> create_points() {
     std::array<T, N> ans;
-    for (auto i = 0; i < N; i++) {ans[i] = (i + 1) * h;}
+    for (auto i = 0; i < N; i++) {ans[i] = (i + 1);}
     return ans;
-}
-
-template<typename T, unsigned int N> // Создание массива со значениями функции в N точках
-std::array<T, N> create_values(std::array<T, N> p) {
-    std::array<T, N> v;
-    for (int i = 0; i < N; i++) {
-        v[i] = exp(p[i]);
-    }
-    return v;
 }
 
 int main() {
@@ -123,13 +114,11 @@ int main() {
 
     // N = 5
     std::array<double, 4> p;
-    std::array<double, 4> v; 
     double h_cur;
     std::array<long double, 16> err;
     for (auto i = 0; i < 16; i++) {
         h_cur = h[i];
-        p = create_points<double, 4>(h_cur);
-        v = create_values<double, 4>(p);
+        p = create_points<double, 4>();
 
         DerivativeCoef<double, 4> coefs = calcDerivativeCoef<double, 4, 2>(p);
         
